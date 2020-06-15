@@ -1,5 +1,7 @@
-package com.example.demo.mssqluser;
+package com.example.demo.mssqluser.sqlconnector;
 
+import com.example.demo.mssqluser.model.SQLRequest;
+import com.example.demo.mssqluser.model.UserCredential;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

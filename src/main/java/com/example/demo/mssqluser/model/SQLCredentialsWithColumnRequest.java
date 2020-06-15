@@ -1,4 +1,4 @@
-package com.example.demo.mssqluser;
+package com.example.demo.mssqluser.model;
 
 import java.util.Objects;
 

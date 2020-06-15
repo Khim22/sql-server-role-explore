@@ -1,5 +1,10 @@
-package com.example.demo.mssqluser;
+package com.example.demo.mssqluser.controller;
 
+import com.example.demo.mssqluser.model.SQLCredentialsAndRequest;
+import com.example.demo.mssqluser.model.SQLCredentialsWithColumnRequest;
+import com.example.demo.mssqluser.model.SQLRequest;
+import com.example.demo.mssqluser.model.UserCredential;
+import com.example.demo.mssqluser.service.SQLService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CreateSQLUserControllerTest {
 
     @Mock
-    private CreateSQLService createSQLService;
+    private SQLService createSQLService;
 
     @InjectMocks
     private CreateSQLUserController createSQLUserController;

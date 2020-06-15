@@ -1,5 +1,9 @@
-package com.example.demo.mssqluser;
+package com.example.demo.mssqluser.controller;
 
+import com.example.demo.mssqluser.service.SQLService;
+import com.example.demo.mssqluser.model.SQLCredentialsAndRequest;
+import com.example.demo.mssqluser.model.SQLCredentialsWithColumnRequest;
+import com.example.demo.mssqluser.model.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreateSQLUserController {
 
     @Autowired
-    private CreateSQLService createSQLService;
+    private SQLService createSQLService;
 
     @PostMapping("/sql-user")
     public String createSQLUser(@RequestBody UserCredential userCredential) throws Exception {
