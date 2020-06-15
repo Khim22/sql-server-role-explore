@@ -85,6 +85,7 @@ public class CreateSQLUserControllerTest {
         // arrange
         ObjectMapper om = new ObjectMapper();
 
+
         UserCredential userCredential = new UserCredential("user1", "Password1");
         SQLRequest sqlTableRequest =  new SQLRequest("table", "test_table");
         SQLRequest sqlColumnRequest =  new SQLRequest("column", "test_col_1");
