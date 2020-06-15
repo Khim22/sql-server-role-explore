@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.SQLException;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -43,5 +45,91 @@ public class CreateSQLUserServiceTest {
 
         // assert
         verify(dataAccessConnector).createUser(userCredential);
+    }
+
+    @Test
+    public void assignSQLUserToDatabase_givenSQLCredentialsAndRequest_shouldReturnDatabaseName() throws SQLException, ClassNotFoundException {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlRequest =  new SQLRequest("database", "test");
+        when(dataAccessConnector.createDatabaseUser(userCredential, sqlRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.assignSQLUserToDatabase(new SQLCredentialsAndRequest(userCredential, sqlRequest));
+
+        // assert
+        assertThat(result).isEqualTo("test");
+    }
+
+    @Test
+    public void assignSQLUserToDatabase_givenSQLCredentialsAndRequest_shouldTriggerDataAccessConnectorCreateUser() throws Exception {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlRequest =  new SQLRequest("database", "test");
+        when(dataAccessConnector.createDatabaseUser(userCredential, sqlRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.assignSQLUserToDatabase(new SQLCredentialsAndRequest(userCredential, sqlRequest));
+
+        // assert
+        verify(dataAccessConnector).createDatabaseUser(userCredential, sqlRequest);
+    }
+
+    @Test
+    public void grantTableAccessToSQLUser_givenSQLCredentialsAndRequest_shouldReturnTableName() throws SQLException, ClassNotFoundException {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlRequest =  new SQLRequest("table", "test_table");
+        when(dataAccessConnector.grantWholeTableAccess(userCredential, sqlRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.grantTableAccessToSQLUser(new SQLCredentialsAndRequest(userCredential, sqlRequest));
+
+        // assert
+        assertThat(result).isEqualTo("test_table");
+    }
+
+    @Test
+    public void grantTableAccessToSQLUser_givenSQLCredentialsAndRequest_shouldTriggerDataAccessConnectorCreateUser() throws SQLException, ClassNotFoundException {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlRequest =  new SQLRequest("table", "test_table");
+        when(dataAccessConnector.grantWholeTableAccess(userCredential, sqlRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.grantTableAccessToSQLUser(new SQLCredentialsAndRequest(userCredential, sqlRequest));
+
+        // assert
+        verify(dataAccessConnector).grantWholeTableAccess(userCredential, sqlRequest);
+    }
+
+    @Test
+    public void grantColumnAccessToSQLUser_givenSQLCredentialsAndTableRequestAndColumnRequest_shouldReturnColumnName() throws SQLException, ClassNotFoundException {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlTableRequest =  new SQLRequest("table", "test_table");
+        SQLRequest sqlColumnRequest =  new SQLRequest("column", "test_column");
+        when(dataAccessConnector.grantColumnAccess(userCredential, sqlTableRequest, sqlColumnRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.grantColumnAccessToSQLUser(new SQLCredentialsWithColumnRequest(userCredential, sqlTableRequest, sqlColumnRequest));
+
+        // assert
+        assertThat(result).isEqualTo("test_column");
+    }
+
+    @Test
+    public void grantColumnAccessToSQLUser_givenSQLCredentialsAndTableRequestAndColumnRequest_shouldTriggerDataAccessConnector() throws SQLException, ClassNotFoundException {
+        // arrange
+        UserCredential userCredential = new UserCredential("user1", "Password1");
+        SQLRequest sqlTableRequest =  new SQLRequest("table", "test_table");
+        SQLRequest sqlColumnRequest =  new SQLRequest("column", "test_column");
+        when(dataAccessConnector.grantColumnAccess(userCredential, sqlTableRequest, sqlColumnRequest)).thenReturn(true);
+
+        // act
+        String result = createSQLService.grantColumnAccessToSQLUser(new SQLCredentialsWithColumnRequest(userCredential, sqlTableRequest, sqlColumnRequest));
+
+        // assert
+        verify(dataAccessConnector).grantColumnAccess(userCredential, sqlTableRequest, sqlColumnRequest);
     }
 }

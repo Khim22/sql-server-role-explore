@@ -1,5 +1,7 @@
 package com.example.demo.mssqluser;
 
+import java.util.Objects;
+
 public class UserCredential {
     private String userName;
     private String password;
@@ -26,5 +28,19 @@ public class UserCredential {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserCredential that = (UserCredential) o;
+        return Objects.equals(userName, that.userName) &&
+                Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, password);
     }
 }

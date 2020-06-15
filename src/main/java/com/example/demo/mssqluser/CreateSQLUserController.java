@@ -15,4 +15,19 @@ public class CreateSQLUserController {
     public String createSQLUser(@RequestBody UserCredential userCredential) throws Exception {
         return createSQLService.createSQLUser(userCredential);
     }
+
+    @PostMapping("/database-user")
+    public String assignSQLUserToDatabase(@RequestBody SQLCredentialsAndRequest sqlCredentialsAndRequest) throws Exception {
+        return createSQLService.assignSQLUserToDatabase(sqlCredentialsAndRequest);
+    }
+
+    @PostMapping("/table-user")
+    public String grantSQLUserToTable(@RequestBody SQLCredentialsAndRequest sqlCredentialsAndRequest) throws Exception {
+        return createSQLService.grantTableAccessToSQLUser(sqlCredentialsAndRequest);
+    }
+
+    @PostMapping("/column-user")
+    public String grantSQLUserToColumn(@RequestBody SQLCredentialsWithColumnRequest sqlCredentialsWithColumnRequest) throws Exception {
+        return createSQLService.grantColumnAccessToSQLUser(sqlCredentialsWithColumnRequest);
+    }
 }
