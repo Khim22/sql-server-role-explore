@@ -46,7 +46,6 @@ public class DataAccessConnector {
         }
     }
 
-
     public boolean createDatabaseUser(UserCredential userCredential, SQLRequest sqlRequest) throws ClassNotFoundException, SQLException {
         Class.forName(driverName);
 

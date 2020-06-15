@@ -5,6 +5,7 @@ import com.example.demo.mssqluser.model.SQLCredentialsWithColumnRequest;
 import com.example.demo.mssqluser.model.SQLRequest;
 import com.example.demo.mssqluser.model.UserCredential;
 import com.example.demo.mssqluser.sqlconnector.DataAccessConnector;
+import com.example.demo.mssqluser.sqlconnector.SQLConnector;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 public class CreateSQLUserServiceTest {
 
     @Mock
-    private DataAccessConnector dataAccessConnector;
+    private SQLConnector dataAccessConnector;
 
     @InjectMocks
     private SQLService createSQLService;
