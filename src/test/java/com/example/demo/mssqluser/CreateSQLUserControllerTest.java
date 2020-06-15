@@ -53,7 +53,7 @@ public class CreateSQLUserControllerTest {
 
         UserCredential userCredential = new UserCredential("user1", "Password1");
         SQLRequest sqlRequest =  new SQLRequest("database", "test");
-        when(createSQLService.assignSQLUserToDatabase(new SQLCredentialsAndRequest(userCredential, sqlRequest))).thenReturn("user1");
+        when(createSQLService.assignSQLUserToDatabase(new SQLCredentialsAndRequest(userCredential, sqlRequest))).thenReturn("test");
 
         // act, assert
         mockMvc.perform(post( "/database-user")

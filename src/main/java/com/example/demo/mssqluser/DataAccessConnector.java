@@ -3,11 +3,12 @@ package com.example.demo.mssqluser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.MethodNotAllowedException;
 
 import java.lang.reflect.MalformedParametersException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 // FIXME: not very safe, should shift to Stored Procedure
 @Component
@@ -38,8 +39,6 @@ public class DataAccessConnector {
         try(Connection conn = DriverManager.getConnection (dataSourceUrl, sqlSaUsername,sqlSaPassword);
             PreparedStatement ps = conn.prepareStatement(sqlCreateLogin)){
             ps.execute();
-
-
 
             return true;
         }
